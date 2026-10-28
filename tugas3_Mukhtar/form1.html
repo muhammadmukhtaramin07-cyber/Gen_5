@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Form Pemesanan Produk UMKM</title>
+<style>
+  :root {
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    --biru-tua: #0a1f5c;
+    --ungu: #5b2a86;
+    --biru-donker: #0f3a7a;
+    --merah: #ff1f3d;
+    --teks: #1e1e2f;
+    --muted: #5d6175;
+    --border: #d6d9e8;
+    --surface: #ffffff;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+    color: var(--teks);
+    background: linear-gradient(135deg, var(--biru-tua) 0%, var(--ungu) 35%, var(--biru-donker) 65%, var(--merah) 100%);
+    background-attachment: fixed;
+    padding: 24px 12px;
+  }
+  .card {
+    max-width: 680px;
+    margin: 0 auto;
+    background: var(--surface);
+    border-radius: 18px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    overflow: hidden;
+  }
+  header {
+    padding: 28px 28px 22px;
+    background: linear-gradient(90deg, var(--biru-tua), var(--ungu));
+    color: #fff;
+  }
+  header h1 { margin: 0 0 6px; font-size: 1.5rem; }
+  header p { margin: 0; opacity: 0.9; font-size: 0.95rem; }
+  form { padding: 24px 28px 28px; }
+  fieldset {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 0 18px;
+  }
+  legend {
+    font-weight: 700;
+    padding: 0 6px;
+    color: var(--ungu);
+  }
+  .field { margin-bottom: 14px; }
+  .field:last-child { margin-bottom: 0; }
+  label.title, .lbl {
+    display: block;
+    font-weight: 600;
+    font-size: 0.92rem;
+    margin-bottom: 6px;
+  }
+  .req { color: var(--merah); }
+  input[type="text"], input[type="number"], select, textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font: inherit;
+    background: #fbfbfe;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  textarea { min-height: 90px; resize: vertical; }
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--biru-donker);
+    box-shadow: 0 0 0 3px rgba(15, 58, 122, 0.15);
+  }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .options { display: flex; flex-wrap: wrap; gap: 10px; }
+  .option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.92rem;
+  }
+  .option:hover { border-color: var(--ungu); }
+  .option input { accent-color: var(--ungu); width: 16px; height: 16px; }
+  .hint { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+  .error { font-size: 0.8rem; color: var(--merah); margin-top: 4px; display: none; }
+  .invalid input, .invalid select, .invalid textarea { border-color: var(--merah); }
+  .invalid .error { display: block; }
+  .actions { display: flex; gap: 12px; justify-content: flex-end; flex-wrap: wrap; margin-top: 8px; }
+  button {
+    font: inherit;
+    font-weight: 700;
+    padding: 12px 22px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform .15s, filter .2s;
+  }
+  button:hover { transform: translateY(-1px); filter: brightness(1.08); }
+  button:active { transform: translateY(0); }
+  .btn-submit {
+    color: #fff;
+    background: linear-gradient(90deg, var(--biru-tua), var(--ungu), var(--merah));
+  }
+  .btn-reset {
+    color: var(--biru-donker);
+    background: #eef1fa;
+    border: 1.5px solid var(--border);
+  }
+  #hasil {
+    display: none;
+    margin: 0 28px 28px;
+    padding: 18px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(10,31,92,.08), rgba(255,31,61,.08));
+    border-left: 5px solid var(--merah);
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+  #hasil h2 { margin: 0 0 8px; font-size: 1.05rem; color: var(--ungu); }
+  #hasil ul { margin: 0; padding-left: 18px; }
+  @media (max-width: 560px) {
+    .row { grid-template-columns: 1fr; }
+    form, header { padding-left: 18px; padding-right: 18px; }
+    #hasil { margin: 0 18px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <header>
+    <h1>Form Pemesanan Produk UMKM</h1>
+    <p>Isi data berikut dengan lengkap. Kami akan segera menghubungi Anda untuk konfirmasi pesanan.</p>
+  </header>
+
+  <form id="formPesan" novalidate>
+
+    <fieldset>
+      <legend>Data Pemesan</legend>
+      <div class="field" id="grpNama">
+        <label class="title" for="nama">Nama Lengkap <span class="req">*</span></label>
+        <input type="text" id="nama" name="nama" placeholder="Contoh: Siti Rahayu">
+        <div class="error">Nama wajib diisi.</div>
+      </div>
+      <div class="row">
+        <div class="field" id="grpTelp">
+          <label class="title" for="telepon">No. WhatsApp <span class="req">*</span></label>
+          <input type="text" id="telepon" name="telepon" placeholder="08xxxxxxxxxx" inputmode="tel">
+          <div class="error">Nomor WhatsApp wajib diisi dengan benar.</div>
+        </div>
+        <div class="field">
+          <label class="title" for="email">Email</label>
+          <input type="text" id="email" name="email" placeholder="nama@email.com">
+        </div>
+      </div>
+      <div class="field">
+        <label class="title" for="kota">Kota / Kabupaten</label>
+        <input type="text" id="kota" name="kota" placeholder="Contoh: Surabaya">
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Detail Pesanan</legend>
+      <div class="row">
+        <div class="field" id="grpProduk">
+          <label class="title" for="produk">Pilih Produk <span class="req">*</span></label>
+          <select id="produk" name="produk">
+            <option value="">-- Pilih produk --</option>
+            <option value="Keripik Pisang">Keripik Pisang - Rp 25.000</option>
+            <option value="Sambal Bawang">Sambal Bawang - Rp 18.000</option>
+            <option value="Kopi Robusta">Kopi Robusta 250g - Rp 45.000</option>
+            <option value="Batik Tulis">Batik Tulis Cap - Rp 150.000</option>
+            <option value="Tas Anyaman">Tas Anyaman Pandan - Rp 120.000</option>
+          </select>
+          <div class="error">Silakan pilih produk.</div>
+        </div>
+        <div class="field">
+          <label class="title" for="jumlah">Jumlah <span class="req">*</span></label>
+          <input type="number" id="jumlah" name="jumlah" min="1" value="1">
+        </div>
+      </div>
+
+      <div class="field">
+        <span class="lbl">Ukuran / Varian</span>
+        <select id="varian" name="varian">
+          <option value="Standar">Standar</option>
+          <option value="Kecil">Kecil</option>
+          <option value="Sedang">Sedang</option>
+          <option value="Besar">Besar</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <span class="lbl">Tambahan Kemasan <span class="req">*</span></span>
+        <div class="options">
+          <label class="option"><input type="checkbox" name="kemasan" value="Kardus"> Kardus</label>
+          <label class="option"><input type="checkbox" name="kemasan" value="Bubble Wrap"> Bubble Wrap</label>
+          <label class="option"><input type="checkbox" name="kemasan" value="Label Custom"> Label Custom</label>
+          <label class="option"><input type="checkbox" name="kemasan" value="Kartu Ucapan"> Kartu Ucapan</label>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset id="grpKirim">
+      <legend>Pengiriman & Pembayaran</legend>
+      <div class="field">
+        <span class="lbl">Metode Pengiriman <span class="req">*</span></span>
+        <div class="options">
+          <label class="option"><input type="radio" name="pengiriman" value="JNE Reguler"> JNE Reguler</label>
+          <label class="option"><input type="radio" name="pengiriman" value="J&T Express"> J&amp;T Express</label>
+          <label class="option"><input type="radio" name="pengiriman" value="Ambil di Tempat"> Ambil di Tempat</label>
+        </div>
+        <div class="error">Pilih metode pengiriman.</div>
+      </div>
+      <div class="field">
+        <span class="lbl">Metode Pembayaran <span class="req">*</span></span>
+        <div class="options">
+          <label class="option"><input type="radio" name="bayar" value="Transfer Bank"> Transfer Bank</label>
+          <label class="option"><input type="radio" name="bayar" value="QRIS"> QRIS</label>
+          <label class="option"><input type="radio" name="bayar" value="COD"> COD</label>
+        </div>
+        <div class="error">Pilih metode pembayaran.</div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Alamat & Catatan</legend>
+      <div class="field">
+        <label class="title" for="alamat">Alamat Pengiriman</label>
+        <textarea id="alamat" name="alamat" placeholder="Nama jalan, RT/RW, kelurahan, kecamatan, kode pos"></textarea>
+      </div>
+      <div class="field">
+        <label class="title" for="catatan">Catatan untuk Penjual</label>
+        <textarea id="catatan" name="catatan" placeholder="Contoh: Tolong tidak terlalu pedas, dikirim sebelum Jumat"></textarea>
+        <div class="hint">Opsional. Tulis permintaan khusus di sini.</div>
+      </div>
+    </fieldset>
+
+    <div class="field">
+      <label class="option">
+        <input type="checkbox" id="setuju" name="setuju">
+        Saya setuju dengan syarat & ketentuan dan kebijakan pengembalian barang.
+      </label>
+      <div class="error" id="errSetuju">Anda harus menyetujui syarat & ketentuan.</div>
+    </div>
+
+    <div class="actions">
+      <button type="reset" class="btn-reset" id="btnReset">Bersihkan</button>
+      <button type="submit" class="btn-submit">Kirim Pesanan</button>
+    </div>
+  </form>
+
+  <div id="hasil" role="status"></div>
+</div>
+
+<script>
+  const form = document.getElementById("formPesan");
+  const hasil = document.getElementById("hasil");
+
+  function tandai(id, salah) {
+    document.getElementById(id).classList.toggle("invalid", salah);
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    hasil.style.display = "none";
+
+    const nama = document.getElementById("nama").value.trim();
+    const telp = document.getElementById("telepon").value.trim();
+    const produk = document.getElementById("produk").value;
+    const jumlah = parseInt(document.getElementById("jumlah").value, 10);
+    const kemasan = [...form.querySelectorAll('input[name="kemasan"]:checked')].map(i => i.value);
+    const kirim = form.querySelector('input[name="pengiriman"]:checked');
+    const bayar = form.querySelector('input[name="bayar"]:checked');
+    const setuju = document.getElementById("setuju").checked;
+
+    tandai("grpNama", !nama);
+    tandai("grpTelp", !/^(08|\+?62)[0-9]{8,13}$/.test(telp));
+    tandai("grpProduk", !produk);
+    tandai("grpKirim", !kirim || !bayar);
+    tandai("errSetuju", false);
+    document.getElementById("errSetuju").style.display = setuju ? "none" : "block";
+
+    const valid = nama && /^(08|\+?62)[0-9]{8,13}$/.test(telp) && produk && jumlah >= 1 && kirim && bayar && setuju;
+    if (!valid) {
+      const pertama = form.querySelector(".invalid, #errSetuju[style*='block']");
+      if (pertama) pertama.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+
+    if (kemasan.length === 0) kemasan.push("Tidak ada");
+
+    hasil.innerHTML = `
+      <h2>Pesanan Anda Berhasil Dikirim ✔</h2>
+      <ul>
+        <li><b>Nama:</b> ${nama}</li>
+        <li><b>WhatsApp:</b> ${telp}</li>
+        <li><b>Produk:</b> ${produk} (${document.getElementById("varian").value}) × ${jumlah}</li>
+        <li><b>Kemasan:</b> ${kemasan.join(", ")}</li>
+        <li><b>Pengiriman:</b> ${kirim.value}</li>
+        <li><b>Pembayaran:</b> ${bayar.value}</li>
+        <li><b>Catatan:</b> ${document.getElementById("catatan").value.trim() || "-"}</li>
+      </ul>`;
+    hasil.style.display = "block";
+    hasil.scrollIntoView({ behavior: "smooth", block: "center" });
+  });
+
+  document.getElementById("btnReset").addEventListener("click", function () {
+    setTimeout(() => {
+      hasil.style.display = "none";
+      form.querySelectorAll(".invalid").forEach(el => el.classList.remove("invalid"));
+      document.getElementById("errSetuju").style.display = "none";
+    }, 0);
+  });
+</script>
+</body>
+</html>
