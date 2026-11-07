@@ -1,0 +1,116 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: Arial, Helvetica, sans-serif; }
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .header{
+            background-color:#03c2ca;
+            color:blue;
+            text-align:center;
+            padding:20px;
+        }
+        .content {
+            display: flex;
+            flex: 1;
+        }
+        .contact{
+            background-color:#009ab8;
+            color:beige;
+            font-family:Arial, Helvetica, sans-serif;
+            font-size:24px;
+            text-align:center;
+            flex: 1 1 25%;
+            order: 0;
+            padding: 10px;
+        }
+        .article{
+            background-color:rgb(16, 148, 148);
+            color:azure;
+            font-family:Arial, Helvetica, sans-serif;
+            font-size:24px;
+            text-align:left;
+            flex: 2 1 50%;
+            order: 0;
+            padding: 10px;
+        }
+        .news{
+            background-color:#009ab8;
+            color:azure;
+            font-family:Arial, Helvetica, sans-serif;
+            font-size:24px;
+            text-align:left;
+            flex: 1 1 25%;
+            order: 0;
+            padding: 10px;
+        }
+        .footer{
+            background-color:darkgreen;
+            color:rgb(0, 255, 128);
+            font-family:'Times New Roman', Times, serif;
+            text-align:center;
+            padding:20px;
+        }
+        @media (max-width: 700px) {
+            .content { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h3><div class="logo-container">
+            <!-- Ganti simbol ini dengan tag <img> jika Anda punya file logonya -->
+             <img>
+            <div class="logo-icon">&infin;</div>
+            <div class="logo-text">PeTIK Jombang</div>
+        </div>
+        
+        <nav class="nav-links">
+            <a href="#">About</a>
+            <a href="#">Blog</a>
+            <a href="#">Shop</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header> </h3>
+           </div>
+        <div class="content">
+            <div class="contact">
+                <h2 style="font-size: 36px; margin-left:10px;">contact</h2>
+                <i class="fa-duotone fa-solid fa-display-code"></i>
+            </div>
+            <div class="article">
+                <h2 style="font-size: 36px; margin-left:10px; text-align:center;">Informasi Seputar PeTIK 2 Jombang</h2>
+                <p style="margin-left:5px; margin-right: 10px;font: size 20px;text-align:justify;">
+                 PeTIK Jombang merupakan lembaga pendidikan vokasi teknologi informasi dan komunikasi dengan dukungan pembelajaran
+                 bidang ke pesantrenan(Kajian Kitab Kunig) dari ulama-ulama yang memiliki sanad ilmu yang jelas.</p>
+                 <p>
+                 PeTIK Jombang yang merupakan lembaga pendidikan di bawah naungan Yayasan Baitul Maal (YBM) PLN. berkomitmen 
+                 melanjutkan visi dan misi menebar manfaat kepada umat seluas luas nya. Hal ini diwujudkan dengan memberikan 
+                 kemanfaatan kepada anak-anak dhuafa untuk mengenyam pendidikan teknologi informasi dan komunikasi selama 1(satu)
+                 tahum.Jurusan pendidikan teknologi informasi dan komunikasi bagi mahasantri dibagi menjadi 2(dua) jurusan yaitu:
+                 Pengembangan Perangkat Lunak (PPL) dan Digital marketing (DM).
+                    </p>
+                    <p>
+                 Pada jurusan PPL, mahasantri diajarkan bagaimana membuat website, aplikasi berbasis web, aplikasi mobile, merancang UI/UX, merancang database, dan lain-lain. Jurusan DM, mahasantri diajarkan bagaimana menggunakan tool marketing online melalui internet, memasang iklan melalui Instagram, Facebook, TikTok guna meningkatkan penjualan produk. Selain itu juga diajarkan SEO (Search Engine Optimization). Di bidang kepesantrenan, mahasantri diajarkan Kitab Hadits Arbain, Kitab Kuning Taklim Mutaalim, Tauhid (Aqidatul Awam), Fiqih (Safinatunnajah, Fathul Qorib), Tasawuf (Sulam Taufiq, Bidayatul Hidayah), Tafsir (Al Ibris), Nahwu (Jurumiyah).
+                 </p>
+            </div>
+            <div class="news">
+                <h2 style="font-size: 36px; margin-left:10px; text-align:center;">beranda
+                   <p> article</p>
+                   <p>pendaftaran</p>
+                   <p>Galery</p>
+                </h2>
+            </div>
+        </div>
+        <div class="footer">Copyright © 2023 Programming PeTIK. All Rights Reserved</div>
+    </div>
+</body>
