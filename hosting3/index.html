@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Animasi Web Design</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #ffffff;
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+    }
+
+    /* Container utama */
+    .animation-wrapper {
+      width: 100%;
+      max-width: 900px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Area lintasan bola */
+    .ball-lane {
+      width: 100%;
+      height: 120px;
+      position: relative;
+    }
+
+    /* Elemen bola (Cyan / Toska) */
+    .ball {
+      width: 100px;
+      height: 100px;
+      background-color: #5cf1e5;
+      border-radius: 50%;
+      position: absolute;
+      bottom: 0;
+      left: -120px; /* Mulai dari luar layar sebelah kiri */
+      animation: moveBall 4s linear infinite;
+    }
+
+    /* Bar hijau toska tempat teks berjalan */
+    .bar {
+      width: 100%;
+      background-color: #82ffd5;
+      padding: 12px 0;
+      overflow: hidden;
+      white-space: nowrap;
+      position: relative;
+    }
+
+    /* Teks merah */
+    .text {
+      display: inline-block;
+      color: #ff0000;
+      font-size: 26px;
+      font-weight: bold;
+      padding-left: 100%; /* Mulai dari ujung paling kanan */
+      animation: moveText 6s linear infinite;
+    }
+
+    /* Animasi Bola: Kiri ke Kanan */
+    @keyframes moveBall {
+      0% {
+        transform: translateX(0) rotate(0deg);
+      }
+      100% {
+        /* Bergerak melintasi lebar container hingga keluar ke sisi kanan */
+        transform: translateX(calc(1000px + 120px)) rotate(720deg);
+      }
+    }
+
+    /* Animasi Teks: Kanan ke Kiri */
+    @keyframes moveText {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="animation-wrapper">
+    <!-- Bola bergerak di atas bar -->
+    <div class="ball-lane">
+      <div class="ball"></div>
+    </div>
+
+    <!-- Bar dengan teks berjalan -->
+    <div class="bar">
+      <div class="text">Assalamu'alaikum Selamat Belajar Web Design.</div>
+    </div>
+  </div>
+
+</body>
+</html>
