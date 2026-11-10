@@ -1,0 +1,16 @@
+console.log("=== TUGAS 1 ===");
+console.log("Bilangan genap 1 sampai 10:");
+
+for (let i = 2; i <= 10; i += 2) {
+    console.log(i);
+}
+
+console.log("================");
+
+console.log("=== TUGAS 2 ===");
+
+let celcius = 30;
+let fahrenheit = (celcius * 9 / 5) + 32;
+
+console.log("Suhu Celsius: " + celcius + " derajat");
+console.log("Suhu Fahrenheit: " + fahrenheit + " derajat");
