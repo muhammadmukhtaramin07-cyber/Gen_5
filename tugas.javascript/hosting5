@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    // 1. membuat variabel biodata 
+let nama= "Mukhtar";
+let umur = 19;
+let siswa = true;
+
+// 2. menampilkan ke console
+console.log("nama:" nama);
+console.log("umur:" umur);
+console.log("Status siswa:", siswa);
+
+// 1. buat variabel nilai ujian
+let nilai = 70;
+
+// 2. Tampilkan nilai awal 
+console log("Nilai awal", nilai);
+
+// 3. Ubah nilai menjadi 85 (reassignment tanpa 'let')
+nilai = 85;
+
+// 4. Tampilkan nilai yang baru
+console.log("nilai baru:", nilai;)
+</script>
+</body>
+</html>
